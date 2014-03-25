@@ -1,2 +1,10 @@
 
 Library/*
+
+*.csproj
+
+BrowserTest/*
+
+Temp/*
+
+*.sln
