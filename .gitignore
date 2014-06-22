@@ -8,3 +8,5 @@ BrowserTest/*
 Temp/*
 
 *.sln
+
+Assets/SublimeSocketAsset/
