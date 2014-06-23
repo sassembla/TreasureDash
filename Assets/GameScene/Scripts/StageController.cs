@@ -12,8 +12,17 @@ public class StageController : MonoBehaviour {
 	public GameObject charaPrefab;
 	GameObject chara;
 	CharaController charaCont;
+
+	XaisController xaisController;
 	
-	bool tap = false;
+	public enum GAME_STATE {
+		STATE_INITIALIZING,
+		STATE_RUNNING,
+		STATE_XAIING
+	};
+
+	public GAME_STATE state;
+
 	int currentSycro;
 
 	int stepCount;
@@ -29,7 +38,6 @@ public class StageController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
 		chara = Instantiate(charaPrefab) as GameObject;
 		charaCont = chara.GetComponent<CharaController>();
 
@@ -38,8 +46,12 @@ public class StageController : MonoBehaviour {
 
 		before = chara.transform.position + transform.position;
 
-		"2014/06/23 3:58:31".TimeAssert(1000, "tapがboolなのダサいので辞めたい。");
-		tap = true;
+		// generate xai s Controller
+		xaisController = new XaisController();
+		state = GAME_STATE.STATE_INITIALIZING;
+
+
+
 		stepCount = 0;
 		gameCount = 0;
 
@@ -58,15 +70,18 @@ public class StageController : MonoBehaviour {
 			baseList.Add(baseCont);
 			
 			baseCont.id = i;
-			baseCont.kind = (int)Random.Range(1, 10);
+			var kindRandom = (int)Random.Range(1, 10);
 
-			"2014/06/23 3:29:48".TimeAssert(10000, "数値を返してるけど、イベントの要素を返した方が良い筈");
-			if (baseCont.kind == 8 || baseCont.kind == 9 || baseCont.kind == 10) {
-				baseCont.kind = 100;
+			// mapper
+			"2014/06/23 10:18:29".TimeAssert(10000, "マッパーを作る必要あると思う。ランダムに作成した位置マップを持つ。");
+			{
+				if (8 < kindRandom) {
+					baseCont.baseKind = BaseController.BASE_KIND.KIND_ENEMY;
+				}
 			}
 
 			// set position
-			"2014/06/23 3:29:48".TimeAssert(10000, "theBaseの位置を動かしてるけどきっとこれ中身空だ。xに特定の値移動してる。");
+			"2014/06/24 3:29:48".TimeAssert(10000, "theBaseの位置を動かしてるけどきっとこれ中身空だ。xに特定の値移動してる。");
 			if (i >= 1) {
 				theBase.transform.position = positions[i-1] + new Vector3(1.3f, 0, 0);
 			}
@@ -77,23 +92,23 @@ public class StageController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetMouseButtonDown(0)) {
-			if (tap) {
-				"2014/06/23 3:32:01".TimeAssert(1000, "tapが単純なフラグなので、変形させたい。");
+			if (xaisController.IsTappable) {
+				"2014/06/23 3:32:01".TimeAssert(1000, "tapが単純なフラグなので、変形させたい。->クラス作成をして、タッチ自体を委譲したい感じ。");
 				"2014/06/23 3:32:01".TimeAssert(10000, "タップしたらサイコロ回す処理。このへんを優先して作るか。");
 				currentSycro = (int)Random.Range(1, 6);
-				tap = false;
+				xaisController.IsTappable = false;
 
 				// 出た目の数だけ、キャラクターの位置インデックスを動かす
 				stepCount = currentSycro * 10;
 			}
 		}
 
-		"2014/06/23 3:32:01".TimeAssert(10000, "サイコロに合わせて進むところ。");
+		"2014/06/24 3:32:01".TimeAssert(100, "サイコロに合わせて進むところ、stepCountを分解する。");
 		if (stepCount <= 0) {
-			if (!tap) {
+			if (!xaisController.IsTappable) {
 				
 				stepCount = 0;
-				tap = true;
+				xaisController.IsTappable = true;
 
 				var result = baseList[index].Arrived();
 				if (0 < result) {
@@ -123,7 +138,7 @@ public class StageController : MonoBehaviour {
 	*/
 	void FixedUpdate () {
 		if (gameCount % 120 == 0) {
-			"2014/06/23 3:32:01".TimeAssert(1000, "フレームに合わせて地面を落とす処理、同時多発的に複数箇所を落とす、とかがやりたい。");
+			"2014/06/24 3:32:01".TimeAssert(1000, "フレームに合わせて地面を落とす処理、同時多発的に複数箇所を落とす、とかがやりたい。");
 			if (0 <= dropIndex) baseList[dropIndex].fall = true;
 			dropIndex ++;
 		}
