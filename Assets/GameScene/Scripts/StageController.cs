@@ -61,12 +61,13 @@ public class StageController : MonoBehaviour {
 
 			// mapper
 			"2014/06/28 10:18:29".TimeAssert(10000, "マッパーを作る必要あると思う。ランダムに作成した位置マップを持つ。");
-			{
-				if (8 < kindRandom) {
-					baseCont.baseKind = BaseController.BASE_KIND.KIND_ENEMY;
-				}
+		
+			if (8 < kindRandom) {
+				baseCont.baseKind = BaseController.BASE_KIND.KIND_ENEMY;
+			} else {
+				baseCont.baseKind = BaseController.BASE_KIND.KIND_COIN;
 			}
-
+		
 			// set position
 			"2014/06/28 3:29:48".TimeAssert(10000, "theBaseの位置を動かしてるけどきっとこれ中身空だ。xに特定の値移動してる。");
 			if (i >= 1) {
@@ -100,7 +101,7 @@ public class StageController : MonoBehaviour {
 		stageCounter = 0;
 		
 		if (stageCounter % 120 == 0) {
-			"2014/06/25 3:32:01".TimeAssert(1000, "フレームに合わせて地面を落とす処理、同時多発的に複数箇所を落とす、とかがやりたい。");
+			"2014/06/28 3:32:01".TimeAssert(1000, "フレームに合わせて地面を落とす処理、同時多発的に複数箇所を落とす、とかがやりたい。");
 			if (0 <= dropIndex) baseList[dropIndex].fall = true;
 			dropIndex ++;
 		}

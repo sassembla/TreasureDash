@@ -29,12 +29,15 @@ public class BaseController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		"2014/06/25 3:58:31".TimeAssert(100, "種類の設定をもうちょっとちゃんとしたい。でももっと優先すべきは「ゲームになるかどうか」の部分か。");
+		"2014/06/28 3:58:31".TimeAssert(1000, "コインが宙ぶらりん");
+		coin = 0;
+
+		"2014/06/28 3:58:31".TimeAssert(100, "地面の種類の設定をもうちょっとちゃんとしたい。でももっと優先すべきは「ゲームになるかどうか」の部分か。");
 		if (baseKind == BASE_KIND.KIND_ENEMY) {
 			enemy = Instantiate(enemyPrefab, transform.position + new Vector3(0, 1, 0), transform.rotation) as GameObject;
 			hp = (int)Random.Range(1, 2);
 		} else {
-			"2014/06/23 10:18:29".TimeAssert(10000, "コインの設定、あと宝箱の設定とか。とりあえずランダムで出す現在の形で良いと思う。");
+			"2014/06/28 10:18:29".TimeAssert(10000, "コインの設定、あと宝箱の設定とか。とりあえずランダムで出す現在の形で良いと思う。");
 			// coinValue = baseKind;
 		}
 	}
