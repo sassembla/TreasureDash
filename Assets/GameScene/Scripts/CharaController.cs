@@ -1,9 +1,9 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
+using SublimeSocketAsset;
 
-public class CharaController : MonoBehaviour 
-{
+public class CharaController : MonoBehaviour {
 
 	XaisController xaisController;
 
@@ -15,18 +15,15 @@ public class CharaController : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () {
+		
 		(0 < transform.position.y).Assert("character dropped!! :" + transform.position.y);
 
-		"2014/06/24 21:31:11".TimeAssert(10000, "キー入力を受け付ける箇所、これでいいのかな感");
-		if (Input.GetMouseButtonDown(0)) {
+		"2014/07/15 21:31:11".TimeAssert("キー入力を受け付ける箇所、これでいいのかな感");
+		if (Input.anyKey) {
 			if (xaisController.IsTappable) xaisController.Tapped();
-
-
-			
 		}
 
 		// 以降の処理はStepでカウントされる。
-
 	}
 
 
@@ -35,7 +32,7 @@ public class CharaController : MonoBehaviour
 		複数のキャラクター(自分 + 他人 + FOEとか) をセットする。FOEイイナーーー
 	*/
 	public void InitializeWithId (string identity) {
-		"2014/06/23 3:49:40".TimeAssert(1000000, "キャラクターの初期化、なんらかキャッシュとか考えないとなー。");
+		"2014/07/15 3:49:40".TimeAssert("キャラクターの初期化、なんらかキャッシュとか考えないとなー。");
 		Debug.Log("character InitializeWithId " + identity);
 	}
 
@@ -80,7 +77,7 @@ public class CharaController : MonoBehaviour
 		// 	}
 		// } else {
 		// 	if (stepCount % 10 == 0) {
-		// 		"2014/06/23 3:58:31".TimeAssert(10000, "キャラクターの移動、キャラクターごとに「次どこに進むか」を持たせられればいい感じする。");
+		// 		"2014/07/15 3:58:31".TimeAssert(10000, "キャラクターの移動、キャラクターごとに「次どこに進むか」を持たせられればいい感じする。");
 		// 		
 		// 	}
 

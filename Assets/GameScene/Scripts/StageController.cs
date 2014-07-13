@@ -2,9 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 
+using SublimeSocketAsset;
+
 public class StageController : MonoBehaviour {
 	public GameObject basePrefab;
-
 	Vector3 [] positions;
 	List<GameObject> baseObjList;
 	List<BaseController> baseList;
@@ -33,7 +34,7 @@ public class StageController : MonoBehaviour {
 		chara = Instantiate(charaPrefab) as GameObject;
 		charaCont = chara.GetComponent<CharaController>();
 
-		"2014/06/30 3:32:01".TimeAssert(1000000, "複数のプレイヤーを落とせないだろうか？ ");
+		"2014/07/15 3:32:01".TimeAssert("複数のプレイヤーを落とせないだろうか？ ");
 		charaCont.InitializeWithId("myname");
 
 		before = chara.transform.position + transform.position;
@@ -60,7 +61,7 @@ public class StageController : MonoBehaviour {
 			var kindRandom = (int)Random.Range(1, 10);
 
 			// mapper
-			"2014/06/28 10:18:29".TimeAssert(10000, "マッパーを作る必要あると思う。ランダムに作成した位置マップを持つ。");
+			"2014/07/15 10:18:29".TimeAssert("マッパーを作る必要あると思う。ランダムに作成した位置マップを持つ。");
 		
 			if (8 < kindRandom) {
 				baseCont.baseKind = BaseController.BASE_KIND.KIND_ENEMY;
@@ -69,7 +70,7 @@ public class StageController : MonoBehaviour {
 			}
 		
 			// set position
-			"2014/06/28 3:29:48".TimeAssert(10000, "theBaseの位置を動かしてるけどきっとこれ中身空だ。xに特定の値移動してる。");
+			"2014/07/15 3:29:48".TimeAssert("theBaseの位置を動かしてるけどきっとこれ中身空だ。xに特定の値移動してる。");
 			if (i >= 1) {
 				theBase.transform.position = positions[i-1] + new Vector3(1.3f, 0, 0);
 			}
@@ -79,10 +80,9 @@ public class StageController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
 		charaCont.Step();
 		
-		"2014/06/28 3:58:31".TimeAssert(1000000, "カメラの移動、キャラクターから引き離したい。");
+		"2014/07/15 3:58:31".TimeAssert("カメラの移動、キャラクターから引き離したい。");
 		transform.position = chara.transform.position + before;
 		transform.LookAt(chara.transform);
 	}
@@ -101,7 +101,7 @@ public class StageController : MonoBehaviour {
 		stageCounter = 0;
 		
 		if (stageCounter % 120 == 0) {
-			"2014/06/28 3:32:01".TimeAssert(1000, "フレームに合わせて地面を落とす処理、同時多発的に複数箇所を落とす、とかがやりたい。");
+			"2014/07/15 3:32:01".TimeAssert("フレームに合わせて地面を落とす処理、同時多発的に複数箇所を落とす、とかがやりたい。");
 			if (0 <= dropIndex) baseList[dropIndex].fall = true;
 			dropIndex ++;
 		}
