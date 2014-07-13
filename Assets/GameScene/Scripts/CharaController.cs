@@ -18,8 +18,8 @@ public class CharaController : MonoBehaviour {
 		
 		(0 < transform.position.y).Assert("character dropped!! :" + transform.position.y);
 
-		"2014/07/15 21:31:11".TimeAssert("キー入力を受け付ける箇所、これでいいのかな感");
 		if (Input.anyKey) {
+			Debug.Log("L:first!");
 			if (xaisController.IsTappable) xaisController.Tapped();
 		}
 
